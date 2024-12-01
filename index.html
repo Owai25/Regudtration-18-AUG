@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>
-        <Div>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus, enim! </p>
-        </Div>
-    </h1>
+
+<body onload="handleQuestion()" >
+
+    <h1 class="h2">JS Quiz</h1>
+
+    <div class="container" id="quizContainer">
+
+        <div class="header">
+            <h1 id="questionElement" ></h1>
+        </div>
+        <div class="body">
+            <ul id="optionElement" >
+               
+            </ul>
+        </div>
+        <div class="footer">
+            <p> <span id="currentQuesCount" >1</span>  /  <span id="totalCount" >10</span>  </p>
+            <button onclick="nextQues()" id="nextBtn" disabled>Next</button>
+        </div>
+
+    </div>
+
+      <div id="resultContainer" >
+
+      
+    </div>
+
 </body>
+<script src="app.js"></script>
 </html>

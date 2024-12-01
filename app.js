@@ -1,135 +1,163 @@
-// alert("Owais");
-// var fullName = "Owais   Atiq";
-
-// alert(fullName)
-// alert (fullName)
-// alert (fullName)
-// alert (fullName)
-
-// var a = "owais";
-// a = "stop";
-// alert(a)                )))  BODMAS ==> bracket ord dvzn mult +,-  )))
-
-// var num1 = "10";        
-// var num2 = 7
-// var num3 = 4
-// alert ( num1+num2+num3 );
-
-// var name =  "Owais    atiq";
-// console.log(name)
-// var message = Owais + " " + Atiq;
-
-
-// var userAge = +prompt("Enter Your Age");
-
-// if(userAge >= 16 && userAge <=50 ){
-//     console.log("Allow")
-// }
-// else{
-//     console.log ("Not Allow")
-// }
-
-
-// var userAge = +prompt("Enter Your Age");
-
-// if (userAge >= 16 && userAge <=50 ){
-//     console.log("Allow")
-// }else{
-//     console.log("Not Allow")
-// }
-
-// var email = prompt("Enter Your Email")
-// var password = prompt("Enter your Password")
-
-// if(email === "Owais@gmail.com" && password === "Almout")
-// {
-//     console.log("login successfully")
-
-// }
-// else{
-//     console.log("Your password or gmail is Invalid")
-// }
-
-
-// var email = prompt("Enter Your Email")
-// var password = prompt("Enter Your password")
-
-// if(email === "owais@gmail.com" && password === "almout")
-//  {   console.log("Login successfully")}
-// else{
-//     console.log("Invalid password or email")
-// }
-//   if(email === "owais@gmail.com")
-
-//        {
-//             if(password ==="almout")
-//             {
-//                 console.log("successfully")
-//             }else{
-//                 console.log("invalid password")
-//             }
-//        }
-
-//   else{
-//     console.log("email is incorrect")
-//   }
-
-        // ARRAYS
-
-
-        // var cities = ["karachi","lahore","islamabad","multan"]
-
-        // console.log(cities[3], cities[1])
-
-        // var cities = ["lahore", "multan"]
-        // cities[5] = "karachi";
-        // console.log(cities ,"cities");
-
-
-// var cities = ["karachi","multan ", "islamabad","bareli"]
-// console.log(cities[0], cities[2])
-
-
-// var cities = ["karachi","lahore","bareli" ]
-
-// alert("welcome to" + " " + cities[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const quizQuestions = [
+  {
+    id: 1,
+    question: "HTML stands for?",
+    options: {
+      a: "Hyper Text Markup Language",
+      b: "Hyper Text Programming Language",
+      c: "Hyper Text Styling Language",
+      d: "Hyper Text Scripting Language",
+    },
+    answer: "Hyper Text Markup Language",
+  },
+  {
+    id: 2,
+    question: "Which language is used for styling web pages?",
+    options: {
+      a: "HTML",
+      b: "CSS",
+      c: "JavaScript",
+      d: "PHP",
+    },
+    answer: "CSS",
+  },
+  {
+    id: 3,
+    question: "Which of these is a JavaScript framework?",
+    options: {
+      a: "Django",
+      b: "React",
+      c: "Laravel",
+      d: "Bootstrap",
+    },
+    answer: "React",
+  },
+  {
+    id: 4,
+    question: "Which tag is used to define a hyperlink in HTML?",
+    options: {
+      a: "link",
+      b: "a",
+      c: "href",
+      d: "url",
+    },
+    answer: "a",
+  },
+  {
+    id: 5,
+    question: "Which company developed JavaScript?",
+    options: {
+      a: "Microsoft",
+      b: "Netscape",
+      c: "Oracle",
+      d: "Sun Microsystems",
+    },
+    answer: "Netscape",
+  },
+];
+
+// console.log("quizQuestions", quizQuestions[0].question)
+// console.log("quizQuestions", quizQuestions[0].options)
+
+var questionElement = document.getElementById("questionElement");
+var optionElement = document.getElementById("optionElement");
+var nextBtn = document.getElementById("nextBtn");
+var currentQuesCount = document.getElementById("currentQuesCount");
+var totalCount = document.getElementById("totalCount");
+totalCount.innerHTML = quizQuestions.length;
+
+var indexNumber = 0;
+
+var correctAns = 0;
+var wrongAns = 0;
+
+var quizContainer = document.getElementById("quizContainer");
+
+function handleQuestion() {
+  var optionsObj = quizQuestions[indexNumber].options;
+  questionElement.innerHTML = quizQuestions[indexNumber].question;
+  optionElement.innerHTML = "";
+
+  //option render krne k liye UI pr Ul k child
+
+  for (var key in optionsObj) {
+    optionElement.innerHTML += `<li onclick="checkAnswer(this)" >${optionsObj[key]}</li>`;
+  }
+
+  //number counting
+  currentQuesCount.innerHTML = indexNumber + 1;
+}
+
+function nextQues() {
+  // index number hamesha array k index pr increase ho bs
+
+  if (indexNumber < quizQuestions.length - 1) {
+    nextBtn.disabled = true;
+    indexNumber++;
+
+    handleQuestion();
+  } else {
+    console.log("form SUBMIT");
+    console.log("correctAns", correctAns);
+    console.log("wrongAns", wrongAns);
+    console.log((correctAns / quizQuestions.length) * 100);
+    quizContainer.style.display = "none";
+    var resultContainer = document.getElementById("resultContainer");
+    resultContainer.style.display = "block";
+
+    resultContainer.innerHTML = `<h1>  Correct Ans: ${correctAns} </h1>
+        <h1>  Wrong Ans: ${wrongAns} </h1>
+        <h1>  Per% Ans: ${(correctAns / quizQuestions.length) * 100}% </h1>`;
+  }
+}
+
+function checkAnswer(element) {
+  //jitne b LI hai on sub ko get kr lihya kaha sy => UL k child sy
+
+  var allLiElement = optionElement.children;
+
+  var userSelection = element.innerHTML.toLowerCase();
+  console.log("userSelection", userSelection);
+  var ans = quizQuestions[indexNumber].answer.toLowerCase();
+  var result = userSelection === ans;
+  // console.log("answer batao", result)
+
+  if (result) {
+    element.style.backgroundColor = "green";
+    correctAns++;
+  } else {
+    wrongAns++;
+    element.style.backgroundColor = "red";
+  }
+  for (var i = 0; i < allLiElement.length; i++) {
+    if (allLiElement[i].innerHTML.toLowerCase() == ans) {
+      allLiElement[i].style.backgroundColor = "green";
+      break;
+    }
+  }
+
+  for (var i = 0; i < allLiElement.length; i++) {
+    allLiElement[i].style.pointerEvents = "none";
+  }
+  nextBtn.disabled = false;
+}
+var timerMin = 4;
+var timerSec = 5;
+var interval = setInterval(timer, 1000);
+
+function timer() {
+  timerSec--;
+
+  console.log("timerSec", timerSec);
+  // console.log("timerMin" , timerMin)
+
+  if (timerSec == 0) {
+    timerMin--;
+    timerSec = 60;
+    if (timer == 0) {
+      // quiz container = none
+      // result container = show
+      clearInterval(interval);
+    }
+  }
+}
